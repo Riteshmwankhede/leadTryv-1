@@ -2,55 +2,92 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Custom Web-to-Lead Form</title>
+    <title>Centered Web-to-Lead Form</title>
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         font-family: Arial, sans-serif;
-        margin: 20px;
-        max-width: 600px;
-      }
-      h3 {
+        margin: 0;
+        padding: 0;
         background-color: #f4f6f9;
-        padding: 10px;
-        border-left: 4px solid #0070d2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
       }
+
+      .form-container {
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+      }
+
+      h3 {
+        border-left: 5px solid #0070d2;
+        padding-left: 10px;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        color: #0070d2;
+      }
+
       label {
         display: block;
-        margin-top: 10px;
+        margin-top: 15px;
         font-weight: bold;
       }
+
       input,
       select,
       textarea {
         width: 100%;
-        padding: 8px;
-        margin-top: 4px;
-        box-sizing: border-box;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
       }
+
       .btn-container {
-        margin-top: 20px;
+        margin-top: 25px;
+        display: flex;
+        justify-content: space-between;
       }
+
       .btn {
         padding: 10px 20px;
         font-size: 16px;
-        margin-right: 10px;
         border: none;
-        border-radius: 4px;
+        border-radius: 6px;
         cursor: pointer;
       }
+
       .btn-save {
         background-color: #0070d2;
         color: white;
       }
+
       .btn-cancel {
         background-color: #e0e0e0;
+        color: #333;
       }
+
       .error {
         color: red;
         margin-top: 10px;
       }
+
+      .g-recaptcha {
+        margin-top: 20px;
+      }
     </style>
+
     <script>
       function validateForm(e) {
         const captcha = grecaptcha.getResponse();
@@ -60,85 +97,83 @@
             "⚠️ Please verify that you are not a robot.";
         }
       }
+
       function cancelForm() {
-        window.location.href = "https://www.google.com"; // Change as needed
+        window.location.href = "https://www.google.com"; // Customize as needed
       }
     </script>
   </head>
+
   <body>
-    <form
-      action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
-      method="POST"
-      onsubmit="validateForm(event)"
-    >
-      <input type="hidden" name="oid" value="00DWU00000F8NTb" />
-      <input type="hidden" name="retURL" value="https://www.google.com" />
+    <div class="form-container">
+      <form
+        action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
+        method="POST"
+        onsubmit="validateForm(event)"
+      >
+        <input type="hidden" name="oid" value="00DWU00000F8NTb" />
+        <input type="hidden" name="retURL" value="https://www.google.com" />
 
-      <!-- Lead Information -->
-      <h3>Lead Information</h3>
-      <label>First Name</label>
-      <input name="first_name" type="text" maxlength="40" />
-      <label>Last Name *</label>
-      <input name="last_name" type="text" maxlength="80" required />
-      <label>Company *</label>
-      <input name="company" type="text" maxlength="40" required />
-      <label>Lead Status *</label>
-      <select name="status" required>
-        <option value="">--Select--</option>
-        <option value="Open - Not Contacted">Open - Not Contacted</option>
-        <option value="Working - Contacted">Working - Contacted</option>
-        <option value="Closed - Converted">Closed - Converted</option>
-        <option value="Closed - Not Converted">Closed - Not Converted</option>
-      </select>
-      <label>Mobile</label>
-      <input name="mobile" type="text" maxlength="40" />
-      <label>Email</label>
-      <input name="email" type="email" maxlength="80" />
+        <!-- Lead Information -->
+        <h3>Lead Information</h3>
+        <label>First Name</label>
+        <input name="first_name" type="text" maxlength="40" />
+        <label>Last Name *</label>
+        <input name="last_name" type="text" maxlength="80" required />
+        <label>Company *</label>
+        <input name="company" type="text" maxlength="40" required />
+        <label>Lead Status *</label>
+        <select name="status" required>
+          <option value="">--Select--</option>
+          <option value="Open - Not Contacted">Open - Not Contacted</option>
+          <option value="Working - Contacted">Working - Contacted</option>
+          <option value="Closed - Converted">Closed - Converted</option>
+          <option value="Closed - Not Converted">Closed - Not Converted</option>
+        </select>
+        <label>Mobile</label>
+        <input name="mobile" type="text" maxlength="40" />
+        <label>Email</label>
+        <input name="email" type="email" maxlength="80" />
 
-      <!-- Address Information -->
-      <h3>Address Information</h3>
-      <label>Street</label>
-      <input name="street" type="text" maxlength="255" />
-      <label>City</label>
-      <input name="city" type="text" maxlength="40" />
-      <label>State</label>
-      <input name="state" type="text" maxlength="20" />
-      <label>Zip Code</label>
-      <input name="zip" type="text" maxlength="20" />
-      <label>Country</label>
-      <input name="country" type="text" maxlength="40" />
+        <!-- Address Information -->
+        <h3>Address Information</h3>
+        <label>Street</label>
+        <input name="street" type="text" maxlength="255" />
+        <label>City</label>
+        <input name="city" type="text" maxlength="40" />
+        <label>State</label>
+        <input name="state" type="text" maxlength="20" />
+        <label>Zip Code</label>
+        <input name="zip" type="text" maxlength="20" />
+        <label>Country</label>
+        <input name="country" type="text" maxlength="40" />
 
-      <!-- Additional Information -->
-      <h3>Additional Information</h3>
-      <label>SIC Code</label>
-      <input name="sic" type="text" maxlength="20" />
-      <label>Primary</label>
-      <select name="Primary__c">
-        <option value="">--Select--</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
+        <!-- Additional Information -->
+        <h3>Additional Information</h3>
+        <label>SIC Code</label>
+        <input name="sic" type="text" maxlength="20" />
+        <label>Primary</label>
+        <select name="Primary__c">
+          <option value="">--Select--</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
 
-      <!-- Description -->
-      <h3>Description Information</h3>
-      <label>Description</label>
-      <textarea name="description" rows="4" cols="50"></textarea>
+        <!-- Description -->
+        <h3>Description Information</h3>
+        <label>Description</label>
+        <textarea name="description" rows="4" cols="50"></textarea>
 
-      <!-- CAPTCHA -->
-      <br />
-      <div
-        class="g-recaptcha"
-        data-sitekey="6LeljRwrAAAAACSczSzlPCfjOh72U0bqSsB-6lRF"
-      ></div>
-      <div class="error" id="captchaError"></div>
+        <!-- CAPTCHA -->
+        <div class="g-recaptcha" data-sitekey="6LeljRwrAAAAACSczSzlPCfjOh72U0bqSsB-6lRF"></div>
+        <div class="error" id="captchaError"></div>
 
-      <!-- Buttons -->
-      <div class="btn-container">
-        <button type="submit" class="btn btn-save">Save</button>
-        <button type="button" class="btn btn-cancel" onclick="cancelForm()">
-          Cancel
-        </button>
-      </div>
-    </form>
+        <!-- Buttons -->
+        <div class="btn-container">
+          <button type="submit" class="btn btn-save">Save</button>
+          <button type="button" class="btn btn-cancel" onclick="cancelForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
