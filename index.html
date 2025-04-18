@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Lead</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        body {
+            font-family: 'Salesforce Sans', Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+        .form-card {
+            background: white;
+            max-width: 700px;
+            margin: auto;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-top: 25px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        .form-footer {
+            margin-top: 30px;
+            text-align: right;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+        .cancel-btn {
+            background-color: #ccc;
+            color: black;
+        }
+        .save-btn {
+            background-color: #0070d2;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="form-card">
+    <h2>New Lead</h2>
+    <form id="leadForm" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" onsubmit="return validateCaptcha()">
+        <input type="hidden" name="oid" value="00DWU00000F8NTb">
+        <input type="hidden" name="retURL" value="http://google.com">
+
+        <!-- Lead Information -->
+        <div class="section-title">Lead Information</div>
+        <label>First Name</label>
+        <input type="text" name="first_name" maxlength="40">
+
+        <label>Last Name *</label>
+        <input type="text" name="last_name" maxlength="80" required>
+
+        <label>Company *</label>
+        <input type="text" name="company" maxlength="40" required>
+
+        <label>Lead Status *</label>
+        <select name="status" required>
+            <option value="">--Select--</option>
+            <option value="Open - Not Contacted">Open - Not Contacted</option>
+            <option value="Working - Contacted">Working - Contacted</option>
+            <option value="Closed - Converted">Closed - Converted</option>
+            <option value="Closed - Not Converted">Closed - Not Converted</option>
+        </select>
+
+        <label>Mobile</label>
+        <input type="text" name="mobile" maxlength="40">
+
+        <label>Email</label>
+        <input type="email" name="email" maxlength="80">
+
+        <!-- Address Information -->
+        <div class="section-title">Address Information</div>
+        <label>Street</label>
+        <input type="text" name="street" maxlength="255">
+
+        <label>City</label>
+        <input type="text" name="city" maxlength="40">
+
+        <label>State</label>
+        <input type="text" name="state" maxlength="20">
+
+        <label>Zip Code</label>
+        <input type="text" name="zip" maxlength="20">
+
+        <label>Country</label>
+        <input type="text" name="country" maxlength="40">
+
+        <!-- Additional Information -->
+        <div class="section-title">Additional Information</div>
+        <label>Number of Locations</label>
+        <input type="number" name="00NYYYYYYYYYYYYYYY">
+
+        <label>Current Generator</label>
+        <input type="text" name="00NXXXXXXXXXXXXXXX">
+
+        <!-- Description -->
+        <div class="section-title">Description Information</div>
+        <label>Description</label>
+        <textarea name="description" rows="4" cols="50"></textarea>
+
+        <!-- CAPTCHA -->
+        <div style="margin-top: 20px;">
+            <div class="g-recaptcha" data-sitekey="6LeljRwrAAAAACSczSzlPCfjOh72U0bqSsB-6lRF"></div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="form-footer">
+            <button type="button" class="cancel-btn" onclick="window.location.href='https://www.google.com'">Cancel</button>
+            <button type="submit" class="save-btn">Save</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function validateCaptcha() {
+        var response = grecaptcha.getResponse();
+        if (response.length == 0) {
+            alert("Please complete the CAPTCHA before submitting.");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>
